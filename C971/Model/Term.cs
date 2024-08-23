@@ -1,6 +1,7 @@
 ﻿using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -22,7 +23,10 @@ namespace C971.Model
         [Column("end")]
         public DateTime EndDate { get; set; }
 
-
+        
         public string DateRange => $"{StartDate:MMMM dd, yyyy} - {EndDate:MMMM dd, yyyy}";
+
+        [Ignore]
+        public ObservableCollection<Course> Courses { get; set; } = new ObservableCollection<Course>();
     }
 }

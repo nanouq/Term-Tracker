@@ -17,6 +17,7 @@ public partial class DetailedTermPage : ContentPage
 	{
 		base.OnAppearing();
 		await LoadTermDetails();
+		await LoadCourses();
 	}
 
 	private async Task LoadTermDetails()
@@ -25,8 +26,15 @@ public partial class DetailedTermPage : ContentPage
 
 		if (updatedTerm != null)
 		{
-			BindingContext = updatedTerm;
+			_term = updatedTerm;
+			BindingContext = _term;
 		}
+	}
+
+	private async Task LoadCourses()
+	{
+		var courses = await CourseService.GetByTermId(_term.Id);
+		CoursesCollectionView.ItemsSource = courses;
 	}
 
 	private async void OnEditClicked(object sender, EventArgs e)
@@ -51,4 +59,9 @@ public partial class DetailedTermPage : ContentPage
 			await Navigation.PopAsync();
 		}
 	}
+
+    private async void OnAddCourseClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new AddCoursePage(_term));
+    }
 }

@@ -40,19 +40,9 @@ namespace C971.Services
         public static async Task RemoveTerm(int id)
         {
             await Init();
-            try
-            {
-                int rowsAffected = await db.DeleteAsync<Term>(id);
 
-                if (rowsAffected == 0)
-                {
-                    Console.WriteLine($"No terms were deleted id is {id}");
-                }
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine($"An error occured while deleting the term: {ex.Message}");
-            }
+            await CourseService.RemoveByTermId(id);
+            await db.DeleteAsync<Term>(id);
 
         }
 

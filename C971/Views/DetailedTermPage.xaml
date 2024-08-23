@@ -11,17 +11,56 @@
         <ToolbarItem Text="Delete"
                      Order="Primary"
                      Clicked="OnDeleteClicked"/>
-
     </ContentPage.ToolbarItems>
 
-    <StackLayout Padding="27">
-        <Label Text="{Binding Title}" FontSize="32" FontAttributes="Bold"/>
-        <Label Text="{Binding DateRange}" FontSize="18" TextColor="Gray"/>
+    <Grid>
+        <ScrollView>
+        <StackLayout Padding="27">
+            <Label Text="{Binding Title}" FontSize="32" FontAttributes="Bold"/>
+            <Label Text="{Binding DateRange}" FontSize="18" TextColor="Gray"/>
 
-        <Label Text="Courses"
+            <Label Text="Courses"
                FontSize="20"
                FontAttributes="Bold"
                HorizontalOptions="Start"
                Margin="0,50,0,5"/>
-    </StackLayout>
+
+            
+            <CollectionView x:Name="CoursesCollectionView">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border BackgroundColor="White"
+                            Stroke="Gray"
+                            StrokeShape="RoundRectangle 10,10"
+                            StrokeThickness="1"
+                            Padding="10"
+                            Margin="0,20,0, 0">
+                        <VerticalStackLayout Padding="10" 
+                                             Spacing="10" 
+                                             VerticalOptions="Center">
+                            <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold"/>
+                            <Label Text="{Binding CourseDateRange}" FontSize="14" TextColor="Gray"/>
+                            <Label Text="{Binding InstructorName}" FontSize="14" TextColor="Gray"/>
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+            
+        </StackLayout>
+        </ScrollView>
+
+        <AbsoluteLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <Button Text="+"
+            BackgroundColor="#003366"
+            TextColor="White"
+            CornerRadius="50"
+            WidthRequest="80"
+            HeightRequest="80"
+            FontSize="Large"
+            Clicked="OnAddCourseClicked"
+            AbsoluteLayout.LayoutBounds="0.9,0.96,AutoSize,AutoSize"
+            AbsoluteLayout.LayoutFlags="PositionProportional"/>
+        </AbsoluteLayout>
+    </Grid>
 </ContentPage>

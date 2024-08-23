@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="C971.Views.AddCoursePage"
+             Title="Add Course">
+    <ScrollView>
+        <StackLayout Padding="20">
+        <Label Text="Course Name:" FontSize="18"/>
+        <Entry x:Name="CourseNameEntry" Placeholder="Enter Course Name"/>
+
+        <Label Text="Start Date:" FontSize="18"/>
+        <DatePicker x:Name="StartDatePicker"/>
+        <Label Text="End Date:" FontSize="18"/>
+        <DatePicker x:Name="EndDatePicker"/>
+
+        <Label Text="Course Status:" FontSize="18"/>
+        <Picker x:Name="CourseStatusPicker">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Plan to Take</x:String>
+                    <x:String>In Progress</x:String>
+                    <x:String>Completed</x:String>
+                    <x:String>Dropped</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+
+        <Label Text="Instructor Name:" FontSize="18"/>
+        <Entry x:Name="InstructorNameEntry" Placeholder="Instructor Name"/>
+        <Label Text="Instructor Phone:" FontSize="18"/>
+        <Entry x:Name="InstructorPhoneEntry" Placeholder="Instructor Phone" Keyboard="Telephone"/>
+        <Label Text="Instructor Email:" FontSize="18"/>
+        <Entry x:Name="InstructorEmailEntry" Placeholder="Instructor Email" Keyboard="Email"/>
+
+        <Label Text="Notes (Optional):" FontSize="18"/>
+        <Editor x:Name="NotesEditor" Placeholder="Enter any notes here"/>
+
+        
+        <Label Text="Notify me on course start date"/>
+        <Switch x:Name="StartDateNotifSwitch"/>
+        
+        <Label Text="Notify me on course end date"/>
+        <Switch x:Name="EndDateNotifSwitch"/>
+
+        <Button Text="Save Course" Clicked="OnSaveCourseClicked"/>
+    </StackLayout>
+
+    </ScrollView>
+
+
+</ContentPage>
