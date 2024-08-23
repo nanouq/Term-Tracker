@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:C971.Model"
+             xmlns:local="clr-namespace:C971.Services"
+             x:Class="C971.MainPage"
+             Title="Term Tracker">
+
+    <Grid>
+
+        <CollectionView ItemsSource="{Binding Terms}"
+                        SelectionMode="Single"
+                        SelectionChanged="OnTermSelected">
+            
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Term">
+                    <Border BackgroundColor="White"
+                            Stroke="Gray"
+                            StrokeShape="RoundRectangle 10,10"
+                            StrokeThickness="1"
+                            Padding="10"
+                            Margin="10">
+
+                        <VerticalStackLayout Padding="10" 
+                                             Spacing="10" 
+                                             VerticalOptions="Center">
+                            <Label Text="{Binding Title}" FontSize="24" FontAttributes="Bold"/>
+                            <Label Text="{Binding DateRange}" FontSize="15"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            
+        </CollectionView>
+        
+        <AbsoluteLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <Button Text="+"
+                    BackgroundColor="#003366"
+                    TextColor="White"
+                    CornerRadius="50"
+                    WidthRequest="80"
+                    HeightRequest="80"
+                    FontSize="Large"
+                    Clicked="OnAddTermClicked"
+                    AbsoluteLayout.LayoutBounds="0.9,0.96,AutoSize,AutoSize"
+                    AbsoluteLayout.LayoutFlags="PositionProportional"/>
+        </AbsoluteLayout>
+        
+    
+    </Grid>
+</ContentPage>

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using C971.Services;
+using Microsoft.Extensions.Logging;
 
 namespace C971
 {
@@ -14,6 +15,7 @@ namespace C971
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+
 
 #if DEBUG
     		builder.Logging.AddDebug();
