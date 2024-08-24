@@ -64,4 +64,14 @@ public partial class DetailedTermPage : ContentPage
     {
         await Navigation.PushAsync(new AddCoursePage(_term));
     }
+
+	private async void OnCourseSelected(object sender, SelectionChangedEventArgs e)
+	{
+		if(e.CurrentSelection.FirstOrDefault() is Course selectedCourse)
+		{
+			await Navigation.PushAsync(new DetailedCoursePage(selectedCourse));
+		}
+
+		((CollectionView)sender).SelectedItem = null;
+	}
 }

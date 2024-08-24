@@ -70,6 +70,12 @@ build_metadata.AdditionalFiles.ManifestResourceName = C971.Views.DetailedTermPag
 build_metadata.AdditionalFiles.TargetPath = Views\DetailedTermPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\DetailedTermPage.xaml
 
+[E:/C971/C971/Views/EditCoursePage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = C971.Views.EditCoursePage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\EditCoursePage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\EditCoursePage.xaml
+
 [E:/C971/C971/Views/EditTermPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = C971.Views.EditTermPage.xaml

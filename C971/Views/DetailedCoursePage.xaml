@@ -2,11 +2,205 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="C971.Views.DetailedCoursePage"
-             Title="DetailedCoursePage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Course Details"
+             BackgroundColor="WhiteSmoke">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Edit"
+                     Order="Primary"
+                     Clicked="OnEditClicked"/>
+
+        <ToolbarItem Text="Delete"
+                     Order="Primary"
+                     Clicked="OnDeleteClicked"/>
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+
+        <StackLayout Padding="15">
+
+            <!-- Course Name and Course Date-->
+            <Label Text="{Binding Name}" FontSize="30" FontAttributes="Bold" Margin="10,20,0,0"/>
+            <Label Text="{Binding CourseDateRange}" FontSize="16" TextColor="Gray" Margin="10,0,0,0"/>
+            <Label Text="{Binding Status}" FontSize="Medium" TextColor="#003366" FontAttributes="Bold" Margin="10,30,0,0"/>
+
+            <!-- CARDS START -->
+            <VerticalStackLayout Spacing="20" Margin="0, 20, 0, 0">
+
+                <!-- Instructor Information Card -->
+                
+                <Border BackgroundColor="White"                       
+                        StrokeShape="RoundRectangle 10,10"
+                        Padding="20"
+                        Stroke="Transparent"
+                        >
+                    <Border.Shadow>
+                        <Shadow Brush="Gray"
+                                Offset="0,10"
+                                Radius="10"
+                                Opacity="1"/>
+                    </Border.Shadow>
+                    <VerticalStackLayout>
+
+                        <VerticalStackLayout Spacing="5" Margin="0,0,0,10">
+                            <Label Text="Instructor Information" FontSize="Medium" FontAttributes="Bold" />
+                            <Label Text="{Binding InstructorName}" FontSize="Body" LineBreakMode="WordWrap"/>
+                            <Label Text="{Binding InstructorPhone}" FontSize="Body" LineBreakMode="WordWrap"/>
+                            <Label Text="{Binding InstructorEmail}" FontSize="Body" LineBreakMode="WordWrap"/>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                    
+                </Border>
+
+                <!-- Notes Card -->
+
+                <Border BackgroundColor="White"
+                        StrokeShape="RoundRectangle 10,10"
+                        Stroke="Transparent"
+                        Padding="20">
+
+                    <Border.Shadow>
+                        <Shadow Brush="Gray"
+                                Offset="0,10"
+                                Radius="10"
+                                Opacity="1"/>
+                    </Border.Shadow>
+
+                    <VerticalStackLayout>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+
+                            <Label Text="Notes" FontSize="Medium" FontAttributes="Bold" Grid.Column="0" Margin="0, 5,0,0"/>
+
+                            <HorizontalStackLayout Grid.Column="1"
+                                                   Spacing="10"
+                                                   HorizontalOptions="End">
+                                <Button Text="Add"
+                                        FontSize="16"
+                                        FontAttributes="Bold"
+                                        BackgroundColor="Transparent"
+                                        TextColor="#003366"
+                                        HorizontalOptions="End"
+                                        VerticalOptions="Start"
+                                        Padding="0"
+                                        Grid.Column="1"/>
+
+                                <Button Text="Share"
+                                        FontSize="16"
+                                        FontAttributes="Bold"
+                                        BackgroundColor="Transparent"
+                                        TextColor="#003366"
+                                        HorizontalOptions="End"
+                                        VerticalOptions="Start"
+                                        Padding="0"
+                                        Grid.Column="1"/>
+
+
+                            </HorizontalStackLayout>
+
+                        </Grid>
+
+                        <VerticalStackLayout Spacing="5" Margin="0,0,0,10">
+                            <Label Text="{Binding Notes}" FontSize="16" LineBreakMode="WordWrap"/>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Notification Card -->
+
+                <Border BackgroundColor="White"
+                        Stroke="Transparent"
+                        StrokeShape="RoundRectangle 10,10"
+                        Padding="20">
+
+                    <Border.Shadow>
+                        <Shadow Brush="Gray"
+                                Offset="0,10"
+                                Radius="10"
+                                Opacity="1"/>
+                    </Border.Shadow>
+
+                    <VerticalStackLayout>
+                        <Label Text="Notification Settings"
+                               FontSize="Medium"
+                               FontAttributes="Bold"/>
+
+                        <VerticalStackLayout Margin="0,20,0,0" Spacing="15">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Text="Start Date Notification"
+                                       FontSize="Body"
+                                       VerticalOptions="Center"
+                                       Grid.Column="0"/>
+
+                                <Switch IsToggled="{Binding StartDateNotification}"
+                                        VerticalOptions="Center"
+                                        Grid.Column="1"/>
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Text="End Date Notification"
+                                       FontSize="Body"
+                                       VerticalOptions="Center"
+                                       Grid.Column="0"/>
+
+                                <Switch IsToggled="{Binding EndDateNotification}"
+                                        VerticalOptions="Center"
+                                        Grid.Column="1"/>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+
+
+                <!-- Assessment Card -->
+                <Border BackgroundColor="White"
+                        Stroke="Transparent"
+                        StrokeShape="RoundRectangle 10,10"
+                        Padding="20">
+
+                    <Border.Shadow>
+                        <Shadow Brush="Gray"
+                                Offset="0,10"
+                                Radius="10"
+                                Opacity="1"/>
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="10">
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Text="Assessment Information" FontSize="20" FontAttributes="Bold" Grid.Column="0" Margin="0, 5,0,0"/>
+
+                            <Button Text="Add"
+                                    FontSize="16"
+                                    FontAttributes="Bold"
+                                    BackgroundColor="Transparent"
+                                    TextColor="#003366"
+                                    HorizontalOptions="End"
+                                    VerticalOptions="Start"
+                                    Padding="0"
+                                    Grid.Column="1"/>
+
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

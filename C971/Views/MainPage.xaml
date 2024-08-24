@@ -4,7 +4,8 @@
              xmlns:model="clr-namespace:C971.Model"
              xmlns:local="clr-namespace:C971.Services"
              x:Class="C971.MainPage"
-             Title="Term Tracker">
+             Title="Term Tracker"
+             BackgroundColor="WhiteSmoke">
 
     <Grid>
 
@@ -14,21 +15,30 @@
             
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Term">
-                    <Border BackgroundColor="White"
-                            Stroke="Gray"
+                    <Grid Padding="5">
+                        <Border BackgroundColor="White"
+                            Stroke="Transparent"
                             StrokeShape="RoundRectangle 10,10"
                             StrokeThickness="1"
                             Padding="10"
                             Margin="10">
 
-                        <VerticalStackLayout Padding="10" 
+                            <Border.Shadow>
+                                <Shadow Brush="Gray"
+                                        Offset="0,10"
+                                        Radius="10"
+                                        Opacity="1"/>
+                            </Border.Shadow>
+
+
+                            <VerticalStackLayout Padding="20" 
                                              Spacing="10" 
                                              VerticalOptions="Center">
                             <Label Text="{Binding Title}" FontSize="24" FontAttributes="Bold"/>
                             <Label Text="{Binding DateRange}" FontSize="15"/>
                         </VerticalStackLayout>
                     </Border>
-
+                    </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
             

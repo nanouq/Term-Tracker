@@ -32,16 +32,6 @@
         <Label Text="Instructor Email:" FontSize="18"/>
         <Entry x:Name="InstructorEmailEntry" Placeholder="Instructor Email" Keyboard="Email"/>
 
-        <Label Text="Notes (Optional):" FontSize="18"/>
-        <Editor x:Name="NotesEditor" Placeholder="Enter any notes here"/>
-
-        
-        <Label Text="Notify me on course start date"/>
-        <Switch x:Name="StartDateNotifSwitch"/>
-        
-        <Label Text="Notify me on course end date"/>
-        <Switch x:Name="EndDateNotifSwitch"/>
-
         <Button Text="Save Course" Clicked="OnSaveCourseClicked"/>
     </StackLayout>
 
