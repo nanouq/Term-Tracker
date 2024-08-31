@@ -29,6 +29,9 @@ namespace C971.Model
 
         public int TermId { get; set; }
 
+        public bool PerformanceAssessment { get; set; }
+        public bool ObjectiveAssessment { get; set; }
+
         public string CourseDateRange => $"{StartDate:MMMM dd, yyyy} - {EndDate:MMMM dd, yyyy}";
     }
 }

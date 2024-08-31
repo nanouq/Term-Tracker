@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="C971.Views.AddAssessmentPage"
+             Title="Add Assessment">
+    <StackLayout Padding="15">
+        <Label Text="Assessment Name:" FontSize="18" FontAttributes="Bold" Margin="0,20,0,20"/>
+
+        <Entry x:Name="NameEntry" Placeholder="Assessment Name"/>
+
+        <Label Text="Assessment Start Date:" FontSize="18" FontAttributes="Bold" Margin="0,20,0,20"/>
+        <DatePicker x:Name="StartDatePicker"/>
+
+        <Label Text="Assessment Due Date:" FontSize="18" FontAttributes="Bold" Margin="0,20,0,20"/>
+        <DatePicker x:Name="DueDatePicker"/>
+
+        <Label Text="Assessment Notifications:" FontSize="18" FontAttributes="Bold" Margin="0,20,0,20"/>
+        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Start Date Notification"
+           FontSize="Body"
+           VerticalOptions="Center"
+           Grid.Column="0"/>
+
+            <Switch x:Name="StartDateNotification"
+            VerticalOptions="Center"
+            Grid.Column="1"/>
+        </Grid>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Due Date Notification"
+           FontSize="Body"
+           VerticalOptions="Center"
+           Grid.Column="0"/>
+
+            <Switch x:Name="DueDateNotification"
+            VerticalOptions="Center"
+            Grid.Column="1"/>
+        </Grid>
+
+        <Label Text="Assessment Type:" FontSize="18" FontAttributes="Bold" Margin="0,20,0,20"/>
+
+        <Picker x:Name="AssessmentTypePicker">
+        </Picker>
+
+        <Button Text="Save" Margin="0,20,0,0" Clicked="OnSaveClicked"/>
+    </StackLayout>
+</ContentPage>

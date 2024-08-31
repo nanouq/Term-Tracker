@@ -85,6 +85,8 @@ public partial class AddCoursePage : ContentPage
         _course.InstructorPhone = InstructorPhoneEntry.Text;
         _course.InstructorEmail = InstructorEmailEntry.Text;
         _course.TermId = _term.Id;
+        _course.PerformanceAssessment = false;
+        _course.ObjectiveAssessment = false;
 
         await CourseService.AddCourse(_course);
 
