@@ -83,6 +83,11 @@ namespace C971.Services
             return course;
         }
 
+        public static async Task<Course> GetCourseByName(string name)
+        {
+            return await db.Table<Course>().FirstOrDefaultAsync(c => c.Name == name);
+        }
+
 
     }
 }

@@ -1,48 +1,18 @@
 ﻿using C971.Model;
-using C971.Services;
-using C971.ViewModel;
-using System.Collections.ObjectModel;
-using C971.Views;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace C971
+namespace C971.Services
 {
-    public partial class MainPage : ContentPage
+    public static class DatabaseSeeder
     {
-
-        private MainViewModel _viewModel;
-        public MainPage()
+        public static async Task SeedData()
         {
-            InitializeComponent();
-            
-            _viewModel = new MainViewModel();
-            BindingContext = _viewModel;
-        }
-
-        private async void OnTermSelected(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.CurrentSelection.FirstOrDefault() is Term selectedTerm)
-            {
-                await Navigation.PushAsync(new DetailedTermPage(selectedTerm));
-
-                ((CollectionView)sender).SelectedItem = null;
-            }
-        }
-
-        protected override async void OnAppearing()
-        {
-            base.OnAppearing();
-            await SeedData();
-            await _viewModel.LoadTerms();
-        }
-
-        private async void OnAddTermClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new AddTermPage());
-        }
-
-        public async Task SeedData()
-        {
+            Debug.WriteLine("SeedData was successfully called");
             var existingTerm = await TermService.GetTermByName("Fall 2024");
             if (existingTerm != null)
             {
@@ -55,6 +25,7 @@ namespace C971
             DateTime termEnd = new DateTime(2024, 12, 9);
 
             await TermService.AddTerm(termName, termStart, termEnd);
+
             var newTerm = await TermService.GetTermByName(termName);
 
             //Create Course For Evaluation Purposes
@@ -80,8 +51,8 @@ namespace C971
             var pAssessment = new Assessment
             {
                 Name = "Sample Performance Assessment",
-                StartDate = new DateTime(2024,9,1),
-                DueDate = new DateTime(2024,9,15),
+                StartDate = new DateTime(2024, 9, 1),
+                DueDate = new DateTime(2024, 9, 15),
                 Type = AssessmentType.Performance,
                 CourseId = newCourse.Id
             };
@@ -99,6 +70,5 @@ namespace C971
 
             await AssessmentService.AddAssessmentWithoutCourse(oAssessment);
         }
-
     }
 }

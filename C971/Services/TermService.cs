@@ -2,6 +2,7 @@
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -74,7 +75,22 @@ namespace C971.Services
 
         public static async Task<Term> GetById(int id)
         {
+            await Init();
             return await db.Table<Term>().Where(x => x.Id == id).FirstOrDefaultAsync();
+        }
+
+        public static async Task<Term> GetTermByName(string name)
+        {
+            await Init();
+            try
+            {
+                return await db.Table<Term>().FirstOrDefaultAsync(t => t.Title == name);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error fetching term by name: {ex}");
+                return null;
+            }
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using C971.Views;
+﻿using C971.Model;
+using C971.Services;
+using C971.Views;
 
 namespace C971
 {
@@ -12,6 +14,12 @@ namespace C971
                 BarBackgroundColor = Color.FromArgb("#003366"),
                 BarTextColor = Colors.White,
             };
+        }
+
+        protected override async void OnStart()
+        {
+            base.OnStart();
+            //await DatabaseSeeder.SeedData();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using C971.Model;
+﻿
+using C971.Model;
+
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -24,6 +26,12 @@ namespace C971.Services
             db = new SQLiteAsyncConnection(databasePath);
 
             await db.CreateTableAsync<Assessment>();
+        }
+
+        public static async Task AddAssessmentWithoutCourse(Assessment assessment)
+        {
+            await Init();
+            await db.InsertAsync(assessment);
         }
 
         public static async Task AddAssessment(Assessment assessment, Course course)
