@@ -60,6 +60,12 @@ build_metadata.AdditionalFiles.ManifestResourceName = C971.Views.AppSettings.xam
 build_metadata.AdditionalFiles.TargetPath = Views\AppSettings.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\AppSettings.xaml
 
+[E:/C971/C971/Views/DetailedAssessmentPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = C971.Views.DetailedAssessmentPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\DetailedAssessmentPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\DetailedAssessmentPage.xaml
+
 [E:/C971/C971/Views/DetailedCoursePage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = C971.Views.DetailedCoursePage.xaml
@@ -71,6 +77,12 @@ build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = C971.Views.DetailedTermPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\DetailedTermPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\DetailedTermPage.xaml
+
+[E:/C971/C971/Views/EditAssessmentPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = C971.Views.EditAssessmentPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\EditAssessmentPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\EditAssessmentPage.xaml
 
 [E:/C971/C971/Views/EditCoursePage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml

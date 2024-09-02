@@ -40,25 +40,46 @@ public partial class AddAssessmentPage : ContentPage
 		}
     }
 
+	private bool ValidateFields()
+	{
+		if (string.IsNullOrWhiteSpace(NameEntry.Text))
+		{
+            DisplayAlert("Error", "Assessment name cannot be empty", "OK");
+            return false;
+        }
+
+        if (DueDatePicker.Date <= StartDatePicker.Date)
+        {
+            DisplayAlert("Error", "Due date must be after the start date", "OK");
+            return false;
+        }
+
+		if (AssessmentTypePicker.SelectedIndex == -1)
+		{
+            DisplayAlert("Error", "Please select an assessment type", "OK");
+            return false;
+        }
+        return true;
+	}
+
 	private async void OnSaveClicked(object sender, EventArgs e)
 	{
+		if (!ValidateFields()) return;
 
-		//ADD VALIDATION HERE OR IN NEW METHOD
-
+		var selectedTypeText = AssessmentTypePicker.SelectedItem.ToString();
+		AssessmentType selectedType = selectedTypeText == "Objective" ? AssessmentType.Objective : AssessmentType.Performance;
 
 		var assessment = new Assessment
 		{
 			Name = NameEntry.Text,
 			StartDate = StartDatePicker.Date,
 			DueDate = DueDatePicker.Date,
-			StartDateNotification = StartDateNotification.IsToggled,
-			DueDateNotification = DueDateNotification.IsToggled,
-			Type = (AssessmentType)AssessmentTypePicker.SelectedIndex,
+			Type = selectedType,
 			CourseId = _course.Id
 		};
 
 		await AssessmentService.AddAssessment(assessment, _course);
-
-		await Navigation.PopAsync();
+        await DisplayAlert("Success", "Successfully added assessment", "OK");
+        await Navigation.PopAsync();
 	}
 }

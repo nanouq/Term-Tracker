@@ -44,10 +44,18 @@ namespace C971.Services
             }
         }
 
-        public static async Task RemoveCourse(Assessment assessment, Course course)
+        public static async Task UpdateAssessment(Assessment assessment)
+        {
+            await Init();
+            await db.UpdateAsync(assessment);
+        }
+
+        public static async Task RemoveAssessment(Assessment assessment)
         {
             await Init();
             await db.DeleteAsync<Assessment>(assessment.Id);
+
+            Course course = await CourseService.GetById(assessment.CourseId);
 
             if (assessment.Type == AssessmentType.Performance)
             {

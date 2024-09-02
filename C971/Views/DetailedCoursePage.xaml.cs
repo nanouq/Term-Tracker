@@ -34,7 +34,8 @@ public partial class DetailedCoursePage : ContentPage
 			_assessment = await AssessmentService.GetAssessmentByType(_course.Id, AssessmentType.Performance);
 
 			PerformanceName.Text = _assessment.Name;
-			PerformanceDueDate.Text = $"Due: {_assessment.DueDate.ToString()}";
+			PerformanceDueDate.Text = $"Due: {_assessment.DueDate:MMMM dd, yyyy}";
+			PerformanceLabel.IsVisible = false;
 		}
 
 		if (_course.ObjectiveAssessment == true)
@@ -42,7 +43,8 @@ public partial class DetailedCoursePage : ContentPage
 			_assessment = await AssessmentService.GetAssessmentByType(_course.Id, AssessmentType.Objective);
 
 			ObjectiveName.Text = _assessment.Name;
-			ObjectiveDueDate.Text = $"Due: {_assessment.DueDate.ToString()}";
+			ObjectiveDueDate.Text = $"Due: {_assessment.DueDate:MMMM dd, yyyy}";
+			ObjectiveLabel.IsVisible = false;
 		}
 	}
 
@@ -63,28 +65,42 @@ public partial class DetailedCoursePage : ContentPage
 		{
 			PerformanceInformation.IsVisible = true;
 			AddPerformanceAssessmentButton.IsVisible = false;
-		}
+            PerformanceLabel.IsVisible = false;
+        }
 		else
 		{
             PerformanceInformation.IsVisible = false;
             AddPerformanceAssessmentButton.IsVisible = true;
+            PerformanceLabel.IsVisible = true;
         }
 
         if (_course.ObjectiveAssessment == true)
         {
             ObjectiveInformation.IsVisible = true;
             AddObjectiveAssessmentButton.IsVisible = false;
+            ObjectiveLabel.IsVisible = false;
         }
         else
         {
             ObjectiveInformation.IsVisible = false;
             AddObjectiveAssessmentButton.IsVisible = true;
+            ObjectiveLabel.IsVisible = true;
         }
-
-		
 	}
 
-	private async Task LoadCourseDetails()
+	private async void OnPerformanceAssessmentClicked(object sender, EventArgs e)
+	{
+        _assessment = await AssessmentService.GetAssessmentByType(_course.Id, AssessmentType.Performance);
+        await Navigation.PushAsync(new DetailedAssessmentPage(_assessment));
+    }
+
+    private async void OnObjectiveAssessmentClicked(object sender, EventArgs e)
+    {
+        _assessment = await AssessmentService.GetAssessmentByType(_course.Id, AssessmentType.Objective);
+        await Navigation.PushAsync(new DetailedAssessmentPage(_assessment));
+    }
+
+    private async Task LoadCourseDetails()
     {
 		var updatedCourse = await CourseService.GetById(_course.Id);
 
