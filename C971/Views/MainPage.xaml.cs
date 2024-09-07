@@ -1,6 +1,5 @@
 ﻿using C971.Model;
 using C971.Services;
-using C971.ViewModel;
 using System.Collections.ObjectModel;
 using C971.Views;
 using System.Diagnostics;
@@ -9,14 +8,10 @@ namespace C971
 {
     public partial class MainPage : ContentPage
     {
-
-        private MainViewModel _viewModel;
+        private bool CreatedTermForEvaluation = false;
         public MainPage()
         {
             InitializeComponent();
-            
-            _viewModel = new MainViewModel();
-            BindingContext = _viewModel;
         }
 
         private async void OnTermSelected(object sender, SelectionChangedEventArgs e)
@@ -33,7 +28,16 @@ namespace C971
         {
             base.OnAppearing();
             await SeedData();
-            await _viewModel.LoadTerms();
+            var terms = await TermService.GetTerm();
+            TermCollectionView.ItemsSource = terms;
+            if (terms.Any())
+            {
+                NoTermsAdded.IsVisible = false;
+            }
+            else
+            {
+                NoTermsAdded.IsVisible = true;
+            }
         }
 
         private async void OnAddTermClicked(object sender, EventArgs e)
@@ -41,10 +45,17 @@ namespace C971
             await Navigation.PushAsync(new AddTermPage());
         }
 
+        //This method will load a sample term and course when the app is loaded just for evaluation purposes.
+        //The term can be deleted within the same session but if the app restarts it will add again.
         public async Task SeedData()
         {
             var existingTerm = await TermService.GetTermByName("Fall 2024");
             if (existingTerm != null)
+            {
+                return;
+            }
+
+            if(CreatedTermForEvaluation == true)
             {
                 return;
             }
@@ -98,7 +109,7 @@ namespace C971
             };
 
             await AssessmentService.AddAssessmentWithoutCourse(oAssessment);
+            CreatedTermForEvaluation = true;
         }
-
     }
 }

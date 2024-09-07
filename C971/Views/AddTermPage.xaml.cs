@@ -28,7 +28,7 @@ public partial class AddTermPage : ContentPage
 		}
 
 		await TermService.AddTerm(title, startDate, endDate);
-
-		await Navigation.PopAsync();
+        await DisplayAlert("Success", "Successfully added term", "OK");
+        await Navigation.PopAsync();
     }
 }

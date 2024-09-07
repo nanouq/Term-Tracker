@@ -22,8 +22,7 @@ namespace C971.Model
 
         [Column("end")]
         public DateTime EndDate { get; set; }
-
-        
+ 
         public string DateRange => $"{StartDate:MMMM dd, yyyy} - {EndDate:MMMM dd, yyyy}";
 
         [Ignore]

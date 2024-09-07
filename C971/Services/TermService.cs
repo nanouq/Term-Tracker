@@ -42,6 +42,15 @@ namespace C971.Services
         {
             await Init();
 
+            var courses = await CourseService.GetByTermId(id);
+
+            foreach (var course in courses)
+            {
+                await AssessmentService.DeleteAllCourseAssessments(course);
+
+                await CourseService.RemoveCourse(course.Id);
+            }
+
             await CourseService.RemoveByTermId(id);
             await db.DeleteAsync<Term>(id);
 

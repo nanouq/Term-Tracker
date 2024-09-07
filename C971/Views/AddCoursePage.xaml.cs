@@ -11,7 +11,7 @@ public partial class AddCoursePage : ContentPage
 	public AddCoursePage(Term term)
 	{
 		InitializeComponent();
-        _term = term;
+        _term = term; 
 	}
 
     private bool ValidateCourse()
@@ -51,9 +51,6 @@ public partial class AddCoursePage : ContentPage
             DisplayAlert("Error", "Please enter a valid email", "OK");
             return false;
         }
-
-        
-
         return true;
     }
 
@@ -89,7 +86,7 @@ public partial class AddCoursePage : ContentPage
         _course.ObjectiveAssessment = false;
 
         await CourseService.AddCourse(_course);
-
+        await DisplayAlert("Success", "Successfully added course", "OK");
         await Navigation.PopAsync();
     }
 }

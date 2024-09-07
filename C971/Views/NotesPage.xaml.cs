@@ -13,7 +13,7 @@ public partial class NotesPage : ContentPage
 
 		if (_course.Notes != null)
 		{
-			AddEditLabel.Text = "Edit note:";
+			AddEditLabel.Text = "Edit Note:";
 			NotesEditor.Text = _course.Notes;
 		}
 
@@ -30,7 +30,14 @@ public partial class NotesPage : ContentPage
 
 		_course.Notes = NotesEditor.Text;
 		await CourseService.UpdateCourse(_course);
-        await DisplayAlert("Success", "Successfully added note.", "OK");
+		if(AddEditLabel.Text == "Edit Note:")
+		{
+            await DisplayAlert("Success", "Successfully edited note.", "OK");
+        }
+		else
+		{
+            await DisplayAlert("Success", "Successfully added note.", "OK");
+        }  
 		await Navigation.PopAsync();
     }
 }

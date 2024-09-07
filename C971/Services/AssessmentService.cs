@@ -1,6 +1,6 @@
 ﻿
 using C971.Model;
-
+using Plugin.LocalNotification;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -76,6 +76,43 @@ namespace C971.Services
                 course.ObjectiveAssessment = false;
                 await CourseService.UpdateCourse(course);
             }
+        }
+
+        public static async Task DeleteAllCourseAssessments(Course course)
+        {
+            await Init();
+
+            if (course.PerformanceAssessment)
+            {
+                Assessment pAssessment = await GetAssessmentByType(course.Id, AssessmentType.Performance);
+
+                if (pAssessment.StartDateNotificationId != 0)
+                {
+                    LocalNotificationCenter.Current.Clear(pAssessment.StartDateNotificationId);
+                }
+                if (pAssessment.DueDateNotificationId != 0)
+                {
+                    LocalNotificationCenter.Current.Clear(pAssessment.DueDateNotificationId);
+                }
+
+                await db.DeleteAsync<Assessment>(pAssessment.Id);
+            }
+
+            if (course.ObjectiveAssessment)
+            {
+                Assessment oAssessment = await GetAssessmentByType(course.Id, AssessmentType.Objective);
+
+                if (oAssessment.StartDateNotificationId != 0)
+                {
+                    LocalNotificationCenter.Current.Clear(oAssessment.StartDateNotificationId);
+                }
+                if (oAssessment.DueDateNotificationId != 0)
+                {
+                    LocalNotificationCenter.Current.Clear(oAssessment.DueDateNotificationId);
+                }
+                await db.DeleteAsync<Assessment>(oAssessment.Id);
+            }
+
         }
 
         public static async Task<Assessment> GetAssessmentByType(int courseId, AssessmentType type)

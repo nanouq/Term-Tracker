@@ -8,8 +8,6 @@ public partial class DetailedAssessmentPage : ContentPage
 {
 	private Assessment _assessment;
     private bool _isPageLoaded;
-    int startNotificationId;
-    int dueNotificationId;
     DateTime oldStartDate;
     DateTime oldDueDate;
     public DetailedAssessmentPage(Assessment assessment)
@@ -25,6 +23,7 @@ public partial class DetailedAssessmentPage : ContentPage
         base.OnAppearing();
         await LoadAssessmentDetails();
         UpdateNotifications();
+        UpdateNotificationVisbility();
         _isPageLoaded = true;
     }
 
@@ -42,6 +41,19 @@ public partial class DetailedAssessmentPage : ContentPage
         }
     }
 
+    private void UpdateNotifications()
+    {
+        if (_assessment.StartDateNotificationId != 0)
+        {
+            StartDateNotificationSwitch.IsToggled = true;
+        }
+
+        if (_assessment.DueDateNotificationId != 0)
+        {
+            DueDateNotificationSwitch.IsToggled = true;
+        }
+    }
+
     private async void OnDeleteClicked(object sender, EventArgs e)
 	{
         bool confirmDelete = await DisplayAlert(
@@ -52,12 +64,18 @@ public partial class DetailedAssessmentPage : ContentPage
 
         if (confirmDelete)
         {
+            if(_assessment.StartDateNotificationId != 0)
+            {
+                LocalNotificationCenter.Current.Clear(_assessment.StartDateNotificationId);
+            }
+
+            if (_assessment.DueDateNotificationId != 0)
+            {
+                LocalNotificationCenter.Current.Clear(_assessment.DueDateNotificationId);
+            }
+
             await AssessmentService.RemoveAssessment(_assessment);
-
             await DisplayAlert("Success", "The assessment has been deleted", "OK");
-            LocalNotificationCenter.Current.Clear(startNotificationId);
-            LocalNotificationCenter.Current.Clear(dueNotificationId);
-
             await Navigation.PopAsync();
         }
     }
@@ -67,15 +85,17 @@ public partial class DetailedAssessmentPage : ContentPage
         await Navigation.PushAsync(new EditAssessmentPage(_assessment));
     }
 
-    private async void UpdateNotifications()
+    private async void UpdateNotificationVisbility()
     {
 
-            if (_assessment.StartDate != oldStartDate)
+        if (_assessment.StartDate != oldStartDate)
+        {
+            if (_assessment.StartDateNotificationId != 0)
             {
-                LocalNotificationCenter.Current.Clear(startNotificationId);
+                LocalNotificationCenter.Current.Clear(_assessment.StartDateNotificationId);
                 var notification = new NotificationRequest()
                 {
-                    NotificationId = startNotificationId,
+                    NotificationId = _assessment.StartDateNotificationId,
                     Title = "Assessment Start Reminder",
                     Description = $"Your assessment {_assessment.Name} starts today!",
                     Schedule = new NotificationRequestSchedule
@@ -87,13 +107,17 @@ public partial class DetailedAssessmentPage : ContentPage
                 await LocalNotificationCenter.Current.Show(notification);
                 await DisplayAlert("Notification Update", $"Start date notification for this assessment was updated. You will be notified {_assessment.StartDate:MMMM dd, yyyy}.", "OK");
             }
+        }
 
-            if (_assessment.DueDate != oldDueDate)
+        if (_assessment.DueDate != oldDueDate)
+        {
+
+            if (_assessment.DueDateNotificationId != 0)
             {
-                LocalNotificationCenter.Current.Clear(dueNotificationId);
+                LocalNotificationCenter.Current.Clear(_assessment.DueDateNotificationId);
                 var notification = new NotificationRequest()
                 {
-                    NotificationId = dueNotificationId,
+                    NotificationId = _assessment.DueDateNotificationId,
                     Title = "Assessment Due Reminder",
                     Description = $"Your assessment {_assessment.Name} is due today!",
                     Schedule = new NotificationRequestSchedule
@@ -105,7 +129,7 @@ public partial class DetailedAssessmentPage : ContentPage
                 await LocalNotificationCenter.Current.Show(notification);
                 await DisplayAlert("Notification Update", $"Due date notification for this assessment was updated. You will be notified {_assessment.DueDate:MMMM dd, yyyy}.", "OK");
             }
-        
+        }
     }
 
     private async void OnStartNotificationToggled(object sender, ToggledEventArgs e)
@@ -113,9 +137,8 @@ public partial class DetailedAssessmentPage : ContentPage
         if (!_isPageLoaded) return;
 
         var isNotificationEnabled = e.Value;
-        startNotificationId = _assessment.CourseId * 20000 + _assessment.Id * 20 + 2;
 
-        _assessment.StartDateNotification = isNotificationEnabled;
+        _assessment.StartDateNotificationId = _assessment.CourseId * 20000 + _assessment.Id * 20 + 1;
 
         await AssessmentService.UpdateAssessment(_assessment);
 
@@ -123,7 +146,7 @@ public partial class DetailedAssessmentPage : ContentPage
         {
             var notification = new NotificationRequest()
             {
-                NotificationId = startNotificationId,
+                NotificationId = _assessment.StartDateNotificationId,
                 Title = "Assessment Start Reminder",
                 Description = $"Your assessment {_assessment.Name} starts today!",
                 Schedule = new NotificationRequestSchedule
@@ -137,7 +160,8 @@ public partial class DetailedAssessmentPage : ContentPage
         }
         else
         {
-            LocalNotificationCenter.Current.Clear(startNotificationId);
+            LocalNotificationCenter.Current.Clear(_assessment.StartDateNotificationId);
+            _assessment.StartDateNotificationId = 0;
             await DisplayAlert("Notification Off", $"Start date notification for this assessment turned off. You will no longer be notified.", "OK");
         }
 
@@ -148,9 +172,8 @@ public partial class DetailedAssessmentPage : ContentPage
         if (!_isPageLoaded) return;
 
         var isNotificationEnabled = e.Value;
-        dueNotificationId = _assessment.CourseId * 20000 + _assessment.Id * 20 + 2;
 
-        _assessment.DueDateNotification = isNotificationEnabled;
+        _assessment.DueDateNotificationId = _assessment.CourseId * 20000 + _assessment.Id * 20 + 2;
 
         await AssessmentService.UpdateAssessment(_assessment);
 
@@ -158,7 +181,7 @@ public partial class DetailedAssessmentPage : ContentPage
         {
             var notification = new NotificationRequest()
             {
-                NotificationId = dueNotificationId,
+                NotificationId = _assessment.DueDateNotificationId,
                 Title = "Assessment Due Reminder",
                 Description = $"Your assessment {_assessment.Name} is due today!",
                 Schedule = new NotificationRequestSchedule
@@ -172,7 +195,8 @@ public partial class DetailedAssessmentPage : ContentPage
         }
         else
         {
-            LocalNotificationCenter.Current.Clear(dueNotificationId);
+            LocalNotificationCenter.Current.Clear(_assessment.DueDateNotificationId);
+            _assessment.DueDateNotificationId = 0;
             await DisplayAlert("Notification Off", $"Due date notification for this assessment turned off. You will no longer be notified.", "OK");
         }
     }

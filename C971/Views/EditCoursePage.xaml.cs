@@ -58,9 +58,6 @@ public partial class EditCoursePage : ContentPage
             DisplayAlert("Error", "Please enter a valid email", "OK");
             return false;
         }
-
-       
-
         return true;
 	}
 
@@ -90,7 +87,6 @@ public partial class EditCoursePage : ContentPage
 		_course.InstructorName = InstructorNameEntry.Text;
 		_course.InstructorPhone = InstructorPhoneEntry.Text;
 		_course.InstructorEmail = InstructorEmailEntry.Text;
-
 
         await CourseService.UpdateCourse(_course);
 

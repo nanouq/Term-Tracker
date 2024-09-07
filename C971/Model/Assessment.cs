@@ -17,8 +17,8 @@ namespace C971.Model
         public DateTime DueDate { get; set; }
 
         public AssessmentType Type { get; set; }
-        public bool StartDateNotification { get; set; }
-        public bool DueDateNotification { get; set; }
+        public int StartDateNotificationId { get; set; }
+        public int DueDateNotificationId { get; set; }
 
         public int CourseId { get; set; }
 

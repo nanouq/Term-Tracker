@@ -10,12 +10,12 @@ public partial class DetailedCoursePage : ContentPage
 	private Course _course;
 	private Assessment _assessment;
 	private bool _isPageLoaded;
-	public DetailedCoursePage(Course course)
+    
+    public DetailedCoursePage(Course course)
 	{
 		InitializeComponent();
 		_course = course;
-		_assessment = new Assessment();
-		
+		_assessment = new Assessment();		
 	}
 
     protected override async void OnAppearing()
@@ -24,6 +24,7 @@ public partial class DetailedCoursePage : ContentPage
         await LoadCourseDetails();
 		UpdateAssessmentVisibility();
 		LoadAssessments();
+		UpdateNotifications();
         _isPageLoaded = true;
     }
 
@@ -47,6 +48,19 @@ public partial class DetailedCoursePage : ContentPage
 			ObjectiveLabel.IsVisible = false;
 		}
 	}
+
+	private void UpdateNotifications()
+	{
+		if (_course.StartDateNotificationId != 0)
+		{
+			StartDateNotificationSwitch.IsToggled = true;
+		}
+
+        if (_course.EndDateNotificationId != 0)
+        {
+            EndDateNotificationSwitch.IsToggled = true;
+        }
+    }
 
 	private async void OnAddPerformanceAssessmentClicked(object sender, EventArgs e)
 	{
@@ -129,18 +143,16 @@ public partial class DetailedCoursePage : ContentPage
 
 		if (!_isPageLoaded) return;
 
-		var isNotificationEnabled = e.Value;
-		int startNotificationId = _course.TermId * 10000 + _course.Id * 10 + 1;
-		
-		_course.StartDateNotification = isNotificationEnabled;
+		var isNotificationEnabled = e.Value;		
+		_course.StartDateNotificationId = _course.TermId * 10000 + _course.Id * 10 + 1;
 
-		await CourseService.UpdateCourse(_course);
+        await CourseService.UpdateCourse(_course);
 
 		if (isNotificationEnabled)
 		{
 			var notification = new NotificationRequest()
 			{
-				NotificationId = startNotificationId,
+				NotificationId = _course.StartDateNotificationId,
 				Title = "Course Start Reminder",
 				Description = $"Your course {_course.Name} starts today!",
 				Schedule = new NotificationRequestSchedule
@@ -154,7 +166,8 @@ public partial class DetailedCoursePage : ContentPage
 		}
 		else
 		{
-			LocalNotificationCenter.Current.Clear(startNotificationId);
+			LocalNotificationCenter.Current.Clear(_course.StartDateNotificationId);
+            _course.StartDateNotificationId = 0;
             await DisplayAlert("Notification Off", $"Start date notification for this course turned off. You will no longer be notified.", "OK");
         }
 		
@@ -164,9 +177,8 @@ public partial class DetailedCoursePage : ContentPage
     {
         if (!_isPageLoaded) return;
         var isNotificationEnabled = e.Value;
-        int endNotificationId = _course.TermId * 10000 + _course.Id * 10 + 1;
 
-        _course.EndDateNotification = isNotificationEnabled;
+        _course.EndDateNotificationId = _course.TermId * 10000 + _course.Id * 10 + 2;
 
         await CourseService.UpdateCourse(_course);
 
@@ -174,7 +186,7 @@ public partial class DetailedCoursePage : ContentPage
         {
             var notification = new NotificationRequest()
             {
-                NotificationId = endNotificationId,
+                NotificationId = _course.EndDateNotificationId,
                 Title = "Course End Reminder",
                 Description = $"Your course {_course.Name} ends today!",
                 Schedule = new NotificationRequestSchedule
@@ -188,7 +200,8 @@ public partial class DetailedCoursePage : ContentPage
         }
         else
         {
-            LocalNotificationCenter.Current.Clear(endNotificationId);
+            LocalNotificationCenter.Current.Clear(_course.EndDateNotificationId);
+			_course.EndDateNotificationId = 0;
             await DisplayAlert("Notification Off", $"End date notification for this course turned off. You will no longer be notified.", "OK");
         }
 
@@ -225,7 +238,6 @@ public partial class DetailedCoursePage : ContentPage
 		}
 	}
 
-
 	private async void OnAddNotesClicked(object sender, EventArgs e)
 	{
 		await Navigation.PushAsync(new NotesPage(_course));
@@ -246,7 +258,9 @@ public partial class DetailedCoursePage : ContentPage
 
 		if (confirmDelete)
 		{
-			await CourseService.RemoveCourse(_course.Id);
+			await AssessmentService.DeleteAllCourseAssessments(_course);
+
+            await CourseService.RemoveCourse(_course.Id);
 
 			await DisplayAlert("Success", "The course has been deleted", "OK");
 

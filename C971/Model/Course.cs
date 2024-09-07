@@ -24,8 +24,8 @@ namespace C971.Model
 
         public string Notes { get; set; }
 
-        public bool StartDateNotification { get; set; }
-        public bool EndDateNotification { get; set;}
+        public int StartDateNotificationId { get; set; }
+        public int EndDateNotificationId { get; set;}
 
         public int TermId { get; set; }
 

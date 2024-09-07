@@ -20,8 +20,8 @@
         <StackLayout Padding="15">
 
             <!-- Course Name and Course Date-->
-            <Label Text="{Binding Name}" FontSize="30" FontAttributes="Bold" Margin="10,20,0,0"/>
-            <Label Text="{Binding CourseDateRange}" FontSize="16" TextColor="Gray" Margin="10,0,0,0"/>
+            <Label Text="{Binding Name}" FontSize="30" FontAttributes="Bold" Margin="10,20,0,0" TextColor="#333333"/>
+            <Label Text="{Binding CourseDateRange}" FontSize="16" TextColor="Gray" Margin="10,10,0,0"/>
             <Label Text="{Binding Status}" FontSize="Medium" TextColor="#003366" FontAttributes="Bold" Margin="10,30,0,0"/>
 
 
@@ -242,7 +242,7 @@
                     </Border.Shadow>
 
                     <VerticalStackLayout>
-                        
+
 
                         <VerticalStackLayout Margin="0,0,0,0" Spacing="15">
                             <Grid>
@@ -257,7 +257,6 @@
                                        Grid.Column="0"/>
 
                                 <Switch x:Name="StartDateNotificationSwitch"
-                                        IsToggled="{Binding StartDateNotification}"
                                         Toggled="OnStartNotificationToggled"
                                         VerticalOptions="Center"
                                         Grid.Column="1"/>
@@ -274,7 +273,6 @@
                                        Grid.Column="0"/>
 
                                 <Switch x:Name="EndDateNotificationSwitch"
-                                        IsToggled="{Binding EndDateNotification}"
                                         Toggled="OnEndNotificationToggled"
                                         VerticalOptions="Center"
                                         Grid.Column="1"/>
@@ -282,11 +280,6 @@
                         </VerticalStackLayout>
                     </VerticalStackLayout>
                 </Border>
-
-
-                
-
-
             </VerticalStackLayout>
         </StackLayout>
     </ScrollView>

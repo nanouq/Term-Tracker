@@ -2,17 +2,64 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="C971.Views.EditTermPage"
-             Title="Edit Term">
-    <VerticalStackLayout Padding="20" Spacing="15">
-        <Label Text="Term Title:" FontSize="18"/>
-        <Entry x:Name="TermTitleEntry" Placeholder="Term Title"/>
+             Title="Edit Term"
+             BackgroundColor="WhiteSmoke">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <Label Text="Term Title:" FontSize="16" FontAttributes="Bold" Margin="0,10,0,0"/>
+            <Border BackgroundColor="White"                       
+                StrokeShape="RoundRectangle 10,10"
+                Padding="20"
+                Stroke="Transparent"
+                >
+                <Border.Shadow>
+                    <Shadow Brush="Gray"
+                        Offset="0,10"
+                        Radius="10"
+                        Opacity="1"/>
+                </Border.Shadow>
 
-        <Label Text="Start Date:" FontSize="18"/>
-        <DatePicker x:Name="StartDatePicker"/>
+                <VerticalStackLayout>
+                    <Entry x:Name="TermTitleEntry" Placeholder="Term Title"/>
+                </VerticalStackLayout>
+            </Border>
 
-        <Label Text="End Date:" FontSize="18"/>
-        <DatePicker x:Name="EndDatePicker"/>
+            <Label Text="Term Start Date:" FontSize="16" FontAttributes="Bold" Margin="0,10,0,0"/>
+            <Border BackgroundColor="White"                       
+                StrokeShape="RoundRectangle 10,10"
+                Padding="20"
+                Stroke="Transparent"
+                >
+                <Border.Shadow>
+                    <Shadow Brush="Gray"
+                        Offset="0,10"
+                        Radius="10"
+                        Opacity="1"/>
+                </Border.Shadow>
 
-        <Button Text="Save Term" Clicked="OnSaveTermClicked"/>
-    </VerticalStackLayout>
+                <VerticalStackLayout>
+                    <DatePicker x:Name="StartDatePicker"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="Term End Date:" FontSize="16" FontAttributes="Bold" Margin="0,10,0,0"/>
+            <Border BackgroundColor="White"                       
+                StrokeShape="RoundRectangle 10,10"
+                Padding="20"
+                Stroke="Transparent"
+                >
+                <Border.Shadow>
+                    <Shadow Brush="Gray"
+                        Offset="0,10"
+                        Radius="10"
+                        Opacity="1"/>
+                </Border.Shadow>
+
+                <VerticalStackLayout>
+                    <DatePicker x:Name="EndDatePicker"/>
+                </VerticalStackLayout>
+            </Border>
+            <Button Text="Edit Term" Margin="0,20,0,0" HeightRequest="50" BackgroundColor="#ffcc5b" TextColor="#003366" FontAttributes="Bold" Clicked="OnSaveTermClicked"/>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

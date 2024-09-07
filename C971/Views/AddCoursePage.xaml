@@ -2,40 +2,147 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="C971.Views.AddCoursePage"
-             Title="Add Course">
+             Title="Add Course"
+             BackgroundColor="WhiteSmoke">
     <ScrollView>
-        <StackLayout Padding="20">
-        <Label Text="Course Name:" FontSize="18"/>
-        <Entry x:Name="CourseNameEntry" Placeholder="Enter Course Name"/>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <Label Text="Course Name:" FontSize="16" FontAttributes="Bold" Margin="0,10,0,0"/>
+            <Border BackgroundColor="White"                       
+                    StrokeShape="RoundRectangle 10,10"
+                    Padding="20"
+                    Stroke="Transparent"
+                    >
+                <Border.Shadow>
+                    <Shadow Brush="Gray"
+                            Offset="0,10"
+                            Radius="10"
+                            Opacity="1"/>
+                </Border.Shadow>
 
-        <Label Text="Start Date:" FontSize="18"/>
-        <DatePicker x:Name="StartDatePicker"/>
-        <Label Text="End Date:" FontSize="18"/>
-        <DatePicker x:Name="EndDatePicker"/>
+                <VerticalStackLayout>
+                    <Entry x:Name="CourseNameEntry" Placeholder="Course Name"/>
+                </VerticalStackLayout>
+            </Border>
 
-        <Label Text="Course Status:" FontSize="18"/>
-        <Picker x:Name="CourseStatusPicker">
-            <Picker.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>Plan to Take</x:String>
-                    <x:String>In Progress</x:String>
-                    <x:String>Completed</x:String>
-                    <x:String>Dropped</x:String>
-                </x:Array>
-            </Picker.ItemsSource>
-        </Picker>
+            <Label Text="Start Date:" FontSize="16" FontAttributes="Bold" Margin="0,10,0,0"/>
+            <Border BackgroundColor="White"                       
+                    StrokeShape="RoundRectangle 10,10"
+                    Padding="20"
+                    Stroke="Transparent"
+                    >
+                <Border.Shadow>
+                    <Shadow Brush="Gray"
+                            Offset="0,10"
+                            Radius="10"
+                            Opacity="1"/>
+                </Border.Shadow>
 
-        <Label Text="Instructor Name:" FontSize="18"/>
-        <Entry x:Name="InstructorNameEntry" Placeholder="Instructor Name"/>
-        <Label Text="Instructor Phone:" FontSize="18"/>
-        <Entry x:Name="InstructorPhoneEntry" Placeholder="Instructor Phone" Keyboard="Telephone"/>
-        <Label Text="Instructor Email:" FontSize="18"/>
-        <Entry x:Name="InstructorEmailEntry" Placeholder="Instructor Email" Keyboard="Email"/>
+                <VerticalStackLayout>
+                    <DatePicker x:Name="StartDatePicker"/>
+                </VerticalStackLayout>
+            </Border>
 
-        <Button Text="Save Course" Clicked="OnSaveCourseClicked"/>
-    </StackLayout>
+            <Label Text="End Date:" FontSize="16" FontAttributes="Bold" Margin="0,10,0,0"/>
+            <Border BackgroundColor="White"                       
+                    StrokeShape="RoundRectangle 10,10"
+                    Padding="20"
+                    Stroke="Transparent"
+                    >
+                <Border.Shadow>
+                    <Shadow Brush="Gray"
+                            Offset="0,10"
+                            Radius="10"
+                            Opacity="1"/>
+                </Border.Shadow>
 
+                <VerticalStackLayout>
+                    <DatePicker x:Name="EndDatePicker"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="Course Status:" FontSize="16" FontAttributes="Bold" Margin="0,10,0,0"/>
+            <Border BackgroundColor="White"                       
+                    StrokeShape="RoundRectangle 10,10"
+                    Padding="20"
+                    Stroke="Transparent"
+                    >
+                <Border.Shadow>
+                    <Shadow Brush="Gray"
+                            Offset="0,10"
+                            Radius="10"
+                            Opacity="1"/>
+                </Border.Shadow>
+
+                <VerticalStackLayout>
+                    <Picker x:Name="CourseStatusPicker">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Plan to Take</x:String>
+                                <x:String>In Progress</x:String>
+                                <x:String>Completed</x:String>
+                                <x:String>Dropped</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="Instructor Name:" FontSize="16" FontAttributes="Bold" Margin="0,10,0,0"/>
+            <Border BackgroundColor="White"                       
+                    StrokeShape="RoundRectangle 10,10"
+                    Padding="20"
+                    Stroke="Transparent"
+                    >
+                <Border.Shadow>
+                    <Shadow Brush="Gray"
+                            Offset="0,10"
+                            Radius="10"
+                            Opacity="1"/>
+                </Border.Shadow>
+
+                <VerticalStackLayout>
+                    <Entry x:Name="InstructorNameEntry" Placeholder="Instructor Name"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="Instructor Phone Number:" FontSize="16" FontAttributes="Bold" Margin="0,10,0,0"/>
+            <Border BackgroundColor="White"                       
+                    StrokeShape="RoundRectangle 10,10"
+                    Padding="20"
+                    Stroke="Transparent"
+                    >
+                <Border.Shadow>
+                    <Shadow Brush="Gray"
+                            Offset="0,10"
+                            Radius="10"
+                            Opacity="1"/>
+                </Border.Shadow>
+
+                <VerticalStackLayout>
+                    <Entry x:Name="InstructorPhoneEntry" Placeholder="Instructor Phone" Keyboard="Telephone"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="Instructor Email Address:" FontSize="16" FontAttributes="Bold" Margin="0,10,0,0"/>
+            <Border BackgroundColor="White"                       
+                    StrokeShape="RoundRectangle 10,10"
+                    Padding="20"
+                    Stroke="Transparent"
+                    >
+                <Border.Shadow>
+                    <Shadow Brush="Gray"
+                            Offset="0,10"
+                            Radius="10"
+                            Opacity="1"/>
+                </Border.Shadow>
+
+                <VerticalStackLayout>
+                    <Entry x:Name="InstructorEmailEntry" Placeholder="Instructor Email" Keyboard="Email"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Text="Save Course" Clicked="OnSaveCourseClicked" Margin="0,20,0,0" HeightRequest="50" BackgroundColor="#ffcc5b" TextColor="#003366" FontAttributes="Bold"/>
+
+        </VerticalStackLayout>
     </ScrollView>
-
-
 </ContentPage>

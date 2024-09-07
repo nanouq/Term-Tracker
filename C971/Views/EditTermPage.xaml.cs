@@ -22,8 +22,20 @@ public partial class EditTermPage : ContentPage
 		_term.StartDate = StartDatePicker.Date;
 		_term.EndDate = EndDatePicker.Date;
 
-		await TermService.UpdateTerm(_term.Id, _term.Title, _term.StartDate, _term.EndDate);
+		if(string.IsNullOrWhiteSpace(_term.Title) )
+		{
+            await DisplayAlert("Error", "Please enter a term title.", "OK");
+            return;
+        }
 
-		await Navigation.PopAsync();
+		if(_term.EndDate <= _term.StartDate)
+		{
+            await DisplayAlert("Error", "End date must be after the start date.", "OK");
+            return;
+        }
+
+		await TermService.UpdateTerm(_term.Id, _term.Title, _term.StartDate, _term.EndDate);
+        await DisplayAlert("Success", "Successfully updated term", "OK");
+        await Navigation.PopAsync();
 	}
 }

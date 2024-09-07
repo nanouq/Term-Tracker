@@ -9,7 +9,7 @@
 
     <Grid>
 
-        <CollectionView ItemsSource="{Binding Terms}"
+        <CollectionView x:Name="TermCollectionView" ItemsSource="{Binding Terms}"
                         SelectionMode="Single"
                         SelectionChanged="OnTermSelected">
             
@@ -31,11 +31,11 @@
                             </Border.Shadow>
 
 
-                            <VerticalStackLayout Padding="20" 
+                            <VerticalStackLayout Padding="25" 
                                              Spacing="10" 
                                              VerticalOptions="Center">
-                            <Label Text="{Binding Title}" FontSize="24" FontAttributes="Bold"/>
-                            <Label Text="{Binding DateRange}" FontSize="15"/>
+                            <Label Text="{Binding Title}" FontSize="20" FontFamily="RobotoBold" FontAttributes="Bold"/>
+                            <Label Text="{Binding DateRange}" FontSize="14" FontFamily="RobotoRegular" TextColor="Gray"/>
                         </VerticalStackLayout>
                     </Border>
                     </Grid>
@@ -43,7 +43,12 @@
             </CollectionView.ItemTemplate>
             
         </CollectionView>
-        
+        <StackLayout x:Name="NoTermsAdded">
+            <Label Text="&#x2750;" HorizontalOptions="Center" TextColor="Gray" FontSize="150" Margin="0,100,0,0"/>
+            <Label Text="No terms added." HorizontalOptions="Center" TextColor="Gray" FontSize="18"/>
+            <Label Text="Tap the + button to add a term." HorizontalOptions="Center" TextColor="Gray" FontSize="18"/>
+        </StackLayout>
+
         <AbsoluteLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
             <Button Text="+"
                     BackgroundColor="#003366"

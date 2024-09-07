@@ -18,17 +18,23 @@
     <Grid>
         <ScrollView>
         <StackLayout Padding="15">
-                <Label Text="{Binding Title}" FontSize="32" FontAttributes="Bold" Margin="10,20,0,0"/>
-                <Label Text="{Binding DateRange}" FontSize="18" TextColor="Gray" Margin="10,0,0,0"/>
+                <Label Text="{Binding Title}" FontSize="30" FontFamily="RobotoBold" FontAttributes="Bold" Margin="10,20,0,0" TextColor="#333333"/>
+                <Label Text="{Binding DateRange}" FontSize="16" FontFamily="RobotoRegular" TextColor="Gray" Margin="10,10,0,0"/>
 
             <Label Text="Courses"
                FontSize="20"
+               TextColor="#003366"
                FontAttributes="Bold"
                HorizontalOptions="Start"
                Margin="10,50,0,5"/>
 
-            
-            <CollectionView x:Name="CoursesCollectionView"
+                <StackLayout x:Name="NoCoursesAdded">
+                    <Label Text="&#x2750;" HorizontalOptions="Center" TextColor="Gray" FontSize="150" Margin="0,20,0,0"/>
+                    <Label Text="No courses added." HorizontalOptions="Center" TextColor="Gray" FontSize="18"/>
+                    <Label Text="Tap the + button to add a course." HorizontalOptions="Center" TextColor="Gray" FontSize="18"/>
+                </StackLayout>
+
+                <CollectionView x:Name="CoursesCollectionView"
                             ItemsSource="{Binding Courses}"
                             SelectionMode="Single"
                             SelectionChanged="OnCourseSelected">
@@ -53,7 +59,7 @@
                         <VerticalStackLayout Padding="10" 
                                              Spacing="10" 
                                              VerticalOptions="Center">
-                            <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold"/>
+                            <Label Text="{Binding Name}" FontSize="20" FontAttributes="Bold"/>
                             <Label Text="{Binding CourseDateRange}" FontSize="14" TextColor="Gray"/>
                             <Label Text="{Binding Status}" FontSize="14" TextColor="Gray"/>
                         </VerticalStackLayout>

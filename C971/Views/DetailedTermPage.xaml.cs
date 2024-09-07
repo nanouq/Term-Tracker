@@ -17,7 +17,7 @@ public partial class DetailedTermPage : ContentPage
 	{
 		base.OnAppearing();
 		await LoadTermDetails();
-		await LoadCourses();
+		await LoadCourses();	
 	}
 
 	private async Task LoadTermDetails()
@@ -35,6 +35,14 @@ public partial class DetailedTermPage : ContentPage
 	{
 		var courses = await CourseService.GetByTermId(_term.Id);
 		CoursesCollectionView.ItemsSource = courses;
+		if(courses.Any())
+		{
+			NoCoursesAdded.IsVisible = false;
+		}
+		else
+		{
+			NoCoursesAdded.IsVisible= true;
+		}
 	}
 
 	private async void OnEditClicked(object sender, EventArgs e)

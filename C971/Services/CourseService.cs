@@ -1,4 +1,5 @@
 ﻿using C971.Model;
+using Plugin.LocalNotification;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -44,6 +45,18 @@ namespace C971.Services
         public static async Task RemoveCourse(int id)
         {
             await Init();
+
+            Course course = await GetById(id);
+
+            if (course.StartDateNotificationId != 0)
+            {
+                LocalNotificationCenter.Current.Clear(course.StartDateNotificationId);
+            }
+            if(course.EndDateNotificationId != 0)
+            {
+                LocalNotificationCenter.Current.Clear(course.EndDateNotificationId);
+            }
+
             await db.DeleteAsync<Course>(id);
         }
 
@@ -87,7 +100,5 @@ namespace C971.Services
         {
             return await db.Table<Course>().FirstOrDefaultAsync(c => c.Name == name);
         }
-
-
     }
 }
